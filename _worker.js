@@ -3314,11 +3314,11 @@ async function handleRequest(request) {
   const logData = {
     method: request.method,
     url: request.url,
-    headers: [...request.headers.entries()]
+    headers: [...request.headers.entries()].map(([key, value]) => ({ key, value }))
   };
 
-  const firestoreURL = `https://firestore.googleapis.com/v1/projects/fzli-7ef4e/databases/(default)/documents/logs`;
-  const firestoreToken = 'AIzaSyBLV_bg8p9erE7e-aWhgyJz2_Yy6mqM8V0';
+  const firestoreURL = `https://firestore.googleapis.com/v1/projects/fzli-aad89/databases/(default)/documents/logs`;
+  const firestoreToken = 'AIzaSyAzyEdE_UVI4fDkZll-8oXLnKVwiPkmocg';
 
   await fetch(firestoreURL, {
     method: 'POST',
@@ -3330,7 +3330,18 @@ async function handleRequest(request) {
       fields: {
         method: { stringValue: logData.method },
         url: { stringValue: logData.url },
-        headers: { arrayValue: { values: logData.headers.map(header => ({ stringValue: header.join(': ') })) } }
+        headers: {
+          arrayValue: {
+            values: logData.headers.map(header => ({
+              mapValue: {
+                fields: {
+                  key: { stringValue: header.key },
+                  value: { stringValue: header.value }
+                }
+              }
+            }))
+          }
+        }
       }
     })
   });
@@ -3338,4 +3349,5 @@ async function handleRequest(request) {
   const response = await fetch(request);
   return response;
 }
+
 
