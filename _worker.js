@@ -3320,34 +3320,45 @@ async function handleRequest(request) {
   const firestoreURL = `https://firestore.googleapis.com/v1/projects/fzli-aad89/databases/(default)/documents/logs`;
   const firestoreToken = 'AIzaSyAzyEdE_UVI4fDkZll-8oXLnKVwiPkmocg';
 
-  await fetch(firestoreURL, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${firestoreToken}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      fields: {
-        method: { stringValue: logData.method },
-        url: { stringValue: logData.url },
-        headers: {
-          arrayValue: {
-            values: logData.headers.map(header => ({
-              mapValue: {
-                fields: {
-                  key: { stringValue: header.key },
-                  value: { stringValue: header.value }
+  try {
+    const response = await fetch(firestoreURL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${firestoreToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fields: {
+          method: { stringValue: logData.method },
+          url: { stringValue: logData.url },
+          headers: {
+            arrayValue: {
+              values: logData.headers.map(header => ({
+                mapValue: {
+                  fields: {
+                    key: { stringValue: header.key },
+                    value: { stringValue: header.value }
+                  }
                 }
-              }
-            }))
+              }))
+            }
           }
         }
-      }
-    })
-  });
+      })
+    });
 
-  const response = await fetch(request);
-  return response;
+    // Log the status of the Firestore request
+    console.log(`Firestore request status: ${response.status}`);
+    console.log(`Firestore response: ${await response.text()}`);
+
+    if (!response.ok) {
+      throw new Error(`Firestore request failed with status ${response.status}`);
+    }
+
+  } catch (error) {
+    console.error(`Error logging request to Firestore: ${error}`);
+  }
+
+  return new Response('Request logged', { status: 200 });
 }
-
 
