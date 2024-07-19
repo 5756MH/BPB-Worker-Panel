@@ -825,18 +825,18 @@ const generateRemark = (index, port) => {
     switch (index) {
         case 0:
         case 1:
-            remark = `🙃 Mohadese-CF SNI Domain tlshello Fragment- Domain_${index + 1} : ${port}`;
+            remark = `🙃 Mohadeseh-CF SNI Domain 'tlshello' Handshake Fragment- Domain_${index + 1} : ${port}`;
             break;
         case 2:
         case 3:
-            remark = `💦 MHDS - IPv4_${index - 1} : ${port}`;
+            remark = `🔫 MHDS - IPv4_${index - 1} : ${port}`;
             break;
         case 4:
         case 5:
-            remark = `🐸 MHDS - IPv6_${index - 3} : ${port}`;
+            remark = `🦄 MHDS - IPv6_${index - 3} : ${port}`;
             break;
         default:
-            remark = `🐐 MHDS - Clean IP_${index - 5} : ${port}`;
+            remark = `🗿 MHDS - Clean IP_${index - 5} : ${port}`;
             break;
     }
 
