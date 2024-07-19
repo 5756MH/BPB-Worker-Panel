@@ -1268,7 +1268,7 @@ const getWarpConfigs = async (env, client) => {
     xrayWarpConfig.routing.rules[xrayWarpConfig.routing.rules.length - 1].outboundTag = 'warp';
     delete xrayWarpConfig.observatory;
     delete xrayWarpConfig.routing.balancers;
-    xrayWarpBestPing.remarks = '💦 BPB - Warp Best Ping 🚀'
+    xrayWarpBestPing.remarks = '💦 MHDS - Warp Best Ping 🚀'
     xrayWarpBestPing.dns = await buildDNSObject(remoteDNS, localDNS, blockAds, bypassIran, blockPorn);
     xrayWarpBestPing.routing.rules = buildRoutingRules(localDNS, blockAds, bypassIran, blockPorn, bypassLAN, false, true);
     xrayWarpBestPing.outbounds.splice(0,1);
@@ -1283,7 +1283,7 @@ const getWarpConfigs = async (env, client) => {
     xrayWarpOutbounds.forEach((outbound, index) => {
         xrayWarpConfigs.push({
             ...xrayWarpConfig,
-            remarks: `💦 BPB - Warp ${index + 1} 🇮🇷`,
+            remarks: `💦 MHDS - Warp ${index + 1} 🇮🇷`,
             outbounds: [{...outbound, tag: 'warp'}, ...xrayWarpConfig.outbounds]
         });
     });
@@ -1291,7 +1291,7 @@ const getWarpConfigs = async (env, client) => {
     xrayWoWOutbounds.forEach((outbound, index) => {
         if (outbound.tag.includes('warp-out')) {
             let xrayWoWConfig = structuredClone(xrayWoWConfigTemp);
-            xrayWoWConfig.remarks = `💦 BPB - WoW ${index/2 + 1} 🌍`;
+            xrayWoWConfig.remarks = `💦 MHDS - WoW ${index/2 + 1} 🌍`;
             xrayWoWConfig.outbounds = [{...xrayWoWOutbounds[index]}, {...xrayWoWOutbounds[index + 1]}, ...xrayWoWConfig.outbounds];
             xrayWoWConfig.routing.rules[xrayWoWConfig.routing.rules.length - 1].outboundTag = outbound.tag;
             xrayWarpConfigs.push(xrayWoWConfig);
@@ -2024,7 +2024,7 @@ const renderHomePage = async (env, hostName, fragConfigs) => {
 	</head>
 	
 	<body>
-		<h1>BPB Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
+		<h1>MHDS Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
 		<div class="form-container">
             <h2>FRAGMENT SETTINGS ⚙️</h2>
 			<form id="configForm">
@@ -2246,10 +2246,10 @@ const renderHomePage = async (env, hostName, fragConfigs) => {
                             </div>
                         </td>
                         <td>
-                            <button onclick="openQR('https://${hostName}/fragsub/${userID}#BPB Fragment', 'Fragment Subscription')" style="margin-bottom: 8px;">
+                            <button onclick="openQR('https://${hostName}/fragsub/${userID}#Fragment', 'Fragment Subscription')" style="margin-bottom: 8px;">
                                 QR Code&nbsp;<span class="material-symbols-outlined">qr_code</span>
                             </button>
-                            <button onclick="copyToClipboard('https://${hostName}/fragsub/${userID}#BPB Fragment', true)">
+                            <button onclick="copyToClipboard('https://${hostName}/fragsub/${userID}#Fragment', true)">
                                 Copy Sub<span class="material-symbols-outlined">format_list_bulleted</span>
                             </button>
                         </td>
@@ -2726,7 +2726,7 @@ const renderLoginPage = async () => {
     </head>
     <body>
         <div class="container">
-            <h1>BPB Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
+            <h1>MHDS Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
             <div class="form-container">
                 <h2>User Login</h2>
                 <form id="loginForm">
@@ -2797,7 +2797,7 @@ const renderErrorPage = (message, error, refer) => {
 
     <body>
         <div id="error-container">
-            <h1>BPB Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
+            <h1>MHDS Panel <span style="font-size: smaller;">${panelVersion}</span> 💦</h1>
             <div id="error-message">
                 <h2>${message} ${refer 
                     ? 'Please try again or refer to <a href="https://github.com/bia-pain-bache/BPB-Worker-Panel/blob/main/README.md">documents</a>' 
